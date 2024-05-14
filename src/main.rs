@@ -52,6 +52,7 @@ fn main() -> Result<()> {
     }
 
     let mut read_chars = String::new();
+    let mut currently_playing_chars = String::new();
     loop {
         for event in input_device.fetch_events()? {
             // Only handle pressed key events.
@@ -62,12 +63,19 @@ fn main() -> Result<()> {
             match event.kind() {
                 InputEventKind::Key(Key::KEY_ENTER) => {
                     let input = read_chars.as_str();
-                    audio::play_sound(
-                        &config.inputs_to_filenames,
-                        input,
-                        config.sounds_path.as_path(),
-                        &sink,
-                    )?;
+                    //if new card presented stop current song and start new one
+                    if  read_chars!= currently_playing_chars
+                    {
+                        audio::stop_sound(&sink)?;
+                        
+                        audio::play_sound(
+                            &config.inputs_to_filenames,
+                            input,
+                            config.sounds_path.as_path(),
+                            &sink,
+                        )?;
+                    }
+                    currently_playing_chars.clone_from(&read_chars);
                     read_chars.clear();
                 }
                 InputEventKind::Key(key) => {

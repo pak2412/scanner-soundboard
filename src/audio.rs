@@ -3,7 +3,7 @@
  * License: MIT
  */
 
-use anyhow::Result;
+use anyhow::{Ok, Result};
 use rodio::{Decoder, Sink};
 use std::collections::HashMap;
 use std::fs::File;
@@ -25,6 +25,11 @@ pub(crate) fn play_sound(
         let source = load_source(&path)?;
         sink.append(source);
     }
+    Ok(())
+}
+
+pub(crate) fn stop_sound(sink:&Sink)->Result<()>{
+    sink.stop();
     Ok(())
 }
 
