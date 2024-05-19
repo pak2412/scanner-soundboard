@@ -29,23 +29,22 @@ fn get_char(key: Key) -> Option<char> {
 }
 
 fn main() -> Result<()> {
-    println!("Hello World");
-    Ok(())
-    // let button_red = Button::new(12);
-    // let button_white = Button::new(6);
-    // let button_blue = Button::new(13);
+    println!("Programm gestartet...");
+    let button_red = Button::new(12);
+    let button_white = Button::new(6);
+    let button_blue = Button::new(13);
 
-    // loop {
-    //     if button_red.is_active() {
-    //         println!("Roter Knopf wurde gedrueckt")
-    //     }
-    //     if button_white.is_active() {
-    //         println!("Weisser Knopf wurde gedrueckt")
-    //     }
-    //     if button_blue.is_active() {
-    //         println!("Blauer Knopf wurde gedrueckt")
-    //     }
-    // }
+    loop {
+        if button_red.is_active() {
+            println!("Roter Knopf wurde gedrueckt")
+        }
+        if button_white.is_active() {
+            println!("Weisser Knopf wurde gedrueckt")
+        }
+        if button_blue.is_active() {
+            println!("Blauer Knopf wurde gedrueckt")
+        }
+    }
 
     // let args = cli::parse_args();
 
