@@ -29,71 +29,80 @@ fn get_char(key: Key) -> Option<char> {
 }
 
 fn main() -> Result<()> {
-    println!("Programm gestartet...");
+    // println!("Programm gestartet...");
     let button_red = Button::new(12);
     let button_white = Button::new(6);
     let button_blue = Button::new(13);
 
-    loop {
-        if button_red.is_active() {
-            println!("Roter Knopf wurde gedrueckt")
-        }
-        if button_white.is_active() {
-            println!("Weisser Knopf wurde gedrueckt")
-        }
-        if button_blue.is_active() {
-            println!("Blauer Knopf wurde gedrueckt")
+    // loop {
+    //     if button_red.is_active() {
+    //         println!("Roter Knopf wurde gedrueckt")
+    //     }
+    //     if button_white.is_active() {
+    //         println!("Weisser Knopf wurde gedrueckt")
+    //     }
+    //     if button_blue.is_active() {
+    //         println!("Blauer Knopf wurde gedrueckt")
+    //     }
+    // }
+
+    let args = cli::parse_args();
+
+    let config = config::load_config(&args.config_filename)?;
+
+    let (_stream, stream_handle) = OutputStream::try_default().unwrap();
+    let sink = Sink::try_new(&stream_handle).unwrap();
+
+    sink.sleep_until_end();
+
+    let mut input_device = Device::open(&args.input_device)?;
+    println!(
+        "Opened input device \"{}\".",
+        input_device.name().unwrap_or("unnamed device")
+    );
+
+    match input_device.grab() {
+        Ok(_) => println!("Successfully obtained exclusive access to input device."),
+        Err(error) => {
+            eprintln!("Could not get exclusive access to input device: {}", error);
+            exit(1);
         }
     }
 
-    // let args = cli::parse_args();
+    let mut read_chars = String::new();
+    loop {
+        if button_red.is_active() {
+            sink.set_volume(0.1);
+        }
+        if button_blue.is_active() {
+            sink.set_volume(-0.1);
+        }
+        if button_white.is_active() {
+            sink.stop();
+        }
+        for event in input_device.fetch_events()? {
+            // Only handle pressed key events.
+            if event.event_type() != EventType::KEY || event.value() == 1 {
+                continue;
+            }
 
-    // let config = config::load_config(&args.config_filename)?;
-
-    // let (_stream, stream_handle) = OutputStream::try_default().unwrap();
-    // let sink = Sink::try_new(&stream_handle).unwrap();
-
-    // sink.sleep_until_end();
-
-    // let mut input_device = Device::open(&args.input_device)?;
-    // println!(
-    //     "Opened input device \"{}\".",
-    //     input_device.name().unwrap_or("unnamed device")
-    // );
-
-    // match input_device.grab() {
-    //     Ok(_) => println!("Successfully obtained exclusive access to input device."),
-    //     Err(error) => {
-    //         eprintln!("Could not get exclusive access to input device: {}", error);
-    //         exit(1);
-    //     }
-    // }
-
-    // let mut read_chars = String::new();
-    // loop {
-    // for event in input_device.fetch_events()? {
-    //     // Only handle pressed key events.
-    //     if event.event_type() != EventType::KEY || event.value() == 1 {
-    //         continue;
-    //     }
-
-    //     match event.kind() {
-    //         InputEventKind::Key(Key::KEY_ENTER) => {
-    //             let input = read_chars.as_str();
-    //             audio::play_sound(
-    //                 &config.inputs_to_filenames,
-    //                 input,
-    //                 config.sounds_path.as_path(),
-    //                 &sink,
-    //             )?;
-    //         }
-    //         InputEventKind::Key(key) => {
-    //             if let Some(ch) = get_char(key) {
-    //                 read_chars.push(ch)
-    //             }
-    //         }
-    //         _ => (),
-    //     }
-    // }
-    // }
+            match event.kind() {
+                InputEventKind::Key(Key::KEY_ENTER) => {
+                    let input = read_chars.as_str();
+                    audio::play_sound(
+                        &config.inputs_to_filenames,
+                        input,
+                        config.sounds_path.as_path(),
+                        &sink,
+                    )?;
+                }
+                InputEventKind::Key(key) => {
+                    if let Some(ch) = get_char(key) {
+                        read_chars.push(ch)
+                    }
+                }
+                _ => (),
+            }
+        }
+    }
 }
