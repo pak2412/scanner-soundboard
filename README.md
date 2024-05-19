@@ -55,3 +55,34 @@ Scanner Soundboard is licensed under the MIT license.
 ## Author
 
 Scanner Soundboard was created by Jochen Kupperschmidt.
+
+## Cross-Compiling for Raspberry Pi Zero W with Windows 11
+
+1. Install WSL2 with Powershell
+   - `wsl --install -d Debian`
+2. Install WSL Extension for VSCode 
+   - `ms-vscode-remote.remote-wsl`
+3. Connect to the WSL VM
+4. Install the Rust Extensions
+   - `rust-lang.rust-analyzer`
+   - `tamasfe.even-better-toml`
+   - `serayuzgur.crates`
+5. Open up a terminal in VSCode (Connected to the WSL)
+   - Activate the `armhf` architecture in Debian
+      -  `dpkg --add-architecture armhf`
+   - Update debian packages
+      -  `sudo apt update && sudo apt upgrade -y`
+   - Install Dependencies
+      -  `sudo apt install git curl build-essentials pkg-config libasound2-dev libasound2-dev:armhf gcc-arm-linux-gnueabihf` 
+   - Install Rustup
+      - ```curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh```
+      - Use defaults...
+   - Install cross-compile target
+      - ```rustup target add arm-unknown-linux-gnueabihf```
+   - Clone the git repository
+      -  ```git clone https://github.com/pak2412/scanner-soundboard```
+      - Open up in VSCode (Connected to WSL!)
+      - ```./build.sh```
+6. Binary is written to `./scanner-soundboard/target/arm-unknown-linux-gnueabihf/release/scanner-soundboard`
+
+
