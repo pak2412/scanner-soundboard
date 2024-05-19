@@ -89,6 +89,7 @@ fn main() -> Result<()> {
             match event.kind() {
                 InputEventKind::Key(Key::KEY_ENTER) => {
                     let input = read_chars.as_str();
+                    println!("{}", input);
                     audio::play_sound(
                         &config.inputs_to_filenames,
                         input,
