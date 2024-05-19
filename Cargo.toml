@@ -13,8 +13,15 @@ categories = ["command-line-utilities", "multimedia::audio"]
 
 [dependencies]
 anyhow = "1.0"
-clap = { version = "4.5.4", default-features = false, features = ["derive", "std"] }
+clap = { version = "4.5.4", default-features = false, features = [
+    "derive",
+    "std",
+] }
 evdev = { version = "0.12.2" }
-rodio = { version = "0.18", default-features = false, features = ["mp3", "vorbis"] }
+rodio = { version = "0.18", default-features = false, features = [
+    "mp3",
+    "vorbis",
+] }
 serde = { version = "1.0", features = ["derive"] }
 toml = "0.8.13"
+rust_gpiozero = "0.2.1"

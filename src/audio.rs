@@ -23,12 +23,14 @@ pub(crate) fn play_sound(
             return Ok(());
         }
         let source = load_source(&path)?;
+        sink.stop();
         sink.append(source);
+        sink.play();
     }
     Ok(())
 }
 
-pub(crate) fn stop_sound(sink:&Sink)->Result<()>{
+pub(crate) fn stop_sound(sink: &Sink) -> Result<()> {
     sink.stop();
     Ok(())
 }

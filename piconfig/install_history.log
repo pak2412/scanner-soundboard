@@ -1,0 +1,42 @@
+
+Start-Date: 2023-12-02  22:20:03
+Commandline: apt upgrade -y
+Requested-By: pablo (1000)
+Upgrade: libcurl4:armhf (7.74.0-1.3+deb11u7, 7.74.0-1.3+deb11u10), libwebpmux3:armhf (0.6.1-2.1, 0.6.1-2.1+deb11u2), udev:armhf (247.3-7+rpi1+deb11u1, 247.3-7+rpi1+deb11u2), bind9-host:armhf (1:9.16.37-1~deb11u1, 1:9.16.44-1~deb11u1), libgssapi-krb5-2:armhf (1.18.3-6+deb11u3, 1.18.3-6+deb11u4), libnghttp2-14:armhf (1.43.0-1, 1.43.0-1+deb11u1), libcurl3-gnutls:armhf (7.74.0-1.3+deb11u7, 7.74.0-1.3+deb11u10), openssh-client:armhf (1:8.4p1-5+deb11u1, 1:8.4p1-5+deb11u2), firmware-brcm80211:armhf (1:20221012-1~bpo11+1+rpt1, 1:20230210-5~bpo11+1+rpt2), systemd-timesyncd:armhf (247.3-7+rpi1+deb11u1, 247.3-7+rpi1+deb11u2), rpi-eeprom:armhf (16.0-1, 16.1-1), libtinfo5:armhf (6.2+20201114-2+deb11u1, 6.2+20201114-2+deb11u2), libtinfo6:armhf (6.2+20201114-2+deb11u1, 6.2+20201114-2+deb11u2), libmagic-mgc:armhf (1:5.39-3, 1:5.39-3+deb11u1), libpam-systemd:armhf (247.3-7+rpi1+deb11u1, 247.3-7+rpi1+deb11u2), ssh:armhf (1:8.4p1-5+deb11u1, 1:8.4p1-5+deb11u2), raspi-config:armhf (20230214, 20231012~bullseye), libblas3:armhf (3.9.0-3, 3.9.0-3+deb11u1), firmware-atheros:armhf (1:20221012-1~bpo11+1+rpt1, 1:20230210-5~bpo11+1+rpt2), libmagic1:armhf (1:5.39-3, 1:5.39-3+deb11u1), libwebpdemux2:armhf (0.6.1-2.1, 0.6.1-2.1+deb11u2), libtiff5:armhf (4.2.0-1+deb11u4, 4.2.0-1+deb11u5), libsystemd0:armhf (247.3-7+rpi1+deb11u1, 247.3-7+rpi1+deb11u2), file:armhf (1:5.39-3, 1:5.39-3+deb11u1), logrotate:armhf (3.18.0-2+deb11u1, 3.18.0-2+deb11u2), openssh-server:armhf (1:8.4p1-5+deb11u1, 1:8.4p1-5+deb11u2), libdbus-1-3:armhf (1.12.24-0+deb11u1, 1.12.28-0+deb11u1), libkrb5support0:armhf (1.18.3-6+deb11u3, 1.18.3-6+deb11u4), libflac8:armhf (1.3.3-2+deb11u1, 1.3.3-2+deb11u2), libbsd0:armhf (0.11.3-1, 0.11.3-1+deb11u1), python3-picamera2:armhf (0.3.9-1, 0.3.12-2), libxpm4:armhf (1:3.5.12-1.1~deb11u1, 1:3.5.12-1.1+deb11u1), systemd:armhf (247.3-7+rpi1+deb11u1, 247.3-7+rpi1+deb11u2), libudev1:armhf (247.3-7+rpi1+deb11u1, 247.3-7+rpi1+deb11u2), libx11-data:armhf (2:1.7.2-1, 2:1.7.2-1+deb11u2), libc6:armhf (2.31-13+rpt2+rpi1+deb11u5, 2.31-13+rpt2+rpi1+deb11u7), locales:armhf (2.31-13+rpt2+rpi1+deb11u5, 2.31-13+rpt2+rpi1+deb11u7), libkrb5-3:armhf (1.18.3-6+deb11u3, 1.18.3-6+deb11u4), firmware-realtek:armhf (1:20221012-1~bpo11+1+rpt1, 1:20230210-5~bpo11+1+rpt2), libcamera-apps-lite:armhf (0~git20230301+54a781d-1, 1.2.1-1), base-files:armhf (11.1+rpi1+deb11u6, 11.1+rpi1+deb11u8), libk5crypto3:armhf (1.18.3-6+deb11u3, 1.18.3-6+deb11u4), firmware-libertas:armhf (1:20221012-1~bpo11+1+rpt1, 1:20230210-5~bpo11+1+rpt2), ncurses-base:armhf (6.2+20201114-2+deb11u1, 6.2+20201114-2+deb11u2), bluez-firmware:armhf (1.2-4+rpt10, 1.2-4+rpt11), libwebp6:armhf (0.6.1-2.1, 0.6.1-2.1+deb11u2), libjson-c5:armhf (0.15-2, 0.15-2+deb11u1), firmware-misc-nonfree:armhf (1:20221012-1~bpo11+1+rpt1, 1:20230210-5~bpo11+1+rpt2), adduser:armhf (3.118, 3.118+deb11u1), distro-info-data:armhf (0.51+deb11u3, 0.51+deb11u4), libc-dev-bin:armhf (2.31-13+rpt2+rpi1+deb11u5, 2.31-13+rpt2+rpi1+deb11u7), libssl1.1:armhf (1.1.1n-0+deb11u4+rpt1, 1.1.1w-0+deb11u1+rpt1), openssh-sftp-server:armhf (1:8.4p1-5+deb11u1, 1:8.4p1-5+deb11u2), libcamera0:armhf (0~git20230302+923f5d70-1, 0~git20230720+bde9b04f-1), libc-l10n:armhf (2.31-13+rpt2+rpi1+deb11u5, 2.31-13+rpt2+rpi1+deb11u7), bind9-libs:armhf (1:9.16.37-1~deb11u1, 1:9.16.44-1~deb11u1), libc-bin:armhf (2.31-13+rpt2+rpi1+deb11u5, 2.31-13+rpt2+rpi1+deb11u7), libc-devtools:armhf (2.31-13+rpt2+rpi1+deb11u5, 2.31-13+rpt2+rpi1+deb11u7), libc6-dbg:armhf (2.31-13+rpt2+rpi1+deb11u5, 2.31-13+rpt2+rpi1+deb11u7), libc6-dev:armhf (2.31-13+rpt2+rpi1+deb11u5, 2.31-13+rpt2+rpi1+deb11u7), cpio:armhf (2.13+dfsg-4, 2.13+dfsg-7.1~deb11u1), systemd-sysv:armhf (247.3-7+rpi1+deb11u1, 247.3-7+rpi1+deb11u2), curl:armhf (7.74.0-1.3+deb11u7, 7.74.0-1.3+deb11u10), libncursesw6:armhf (6.2+20201114-2+deb11u1, 6.2+20201114-2+deb11u2), ncurses-bin:armhf (6.2+20201114-2+deb11u1, 6.2+20201114-2+deb11u2), libx11-6:armhf (2:1.7.2-1, 2:1.7.2-1+deb11u2), libgstreamer-plugins-base1.0-0:armhf (1.18.4-2, 1.18.4-2+deb11u1), liblapack3:armhf (3.9.0-3, 3.9.0-3+deb11u1), python3-libcamera:armhf (0~git20230302+923f5d70-1, 0~git20230720+bde9b04f-1), ncurses-term:armhf (6.2+20201114-2+deb11u1, 6.2+20201114-2+deb11u2), dbus:armhf (1.12.24-0+deb11u1, 1.12.28-0+deb11u1), raspberrypi-sys-mods:armhf (20230329, 20230510~bullseye), libncurses6:armhf (6.2+20201114-2+deb11u1, 6.2+20201114-2+deb11u2), openssl:armhf (1.1.1n-0+deb11u4+rpt1, 1.1.1w-0+deb11u1+rpt1)
+End-Date: 2023-12-02  22:26:43
+
+Start-Date: 2023-12-02  22:44:24
+Commandline: apt install mpg123
+Requested-By: pablo (1000)
+Install: libpulse0:armhf (14.2-2+rpt1, automatic), libopenal-data:armhf (1:1.19.1-2, automatic), libsyn123-0:armhf (1.26.4-1, automatic), libjack-jackd2-0:armhf (1.9.17~dfsg-1, automatic), libmpg123-0:armhf (1.26.4-1, automatic), x11-common:armhf (1:7.7+22, automatic), libsndio7.0:armhf (1.5.0-3, automatic), libopus0:armhf (1.3.1-0.1, automatic), libportaudio2:armhf (19.6.0-1.1, automatic), libice6:armhf (2:1.0.10-1, automatic), libopenal1:armhf (1:1.19.1-2, automatic), libvorbisenc2:armhf (1.3.7-1, automatic), libasyncns0:armhf (0.8-6, automatic), libsndfile1:armhf (1.0.31-2, automatic), mpg123:armhf (1.26.4-1), libout123-0:armhf (1.26.4-1, automatic), libaudio2:armhf (1.9.4-7, automatic), libsm6:armhf (2:1.2.3-1, automatic), libxt6:armhf (1:1.2.0-1, automatic)
+End-Date: 2023-12-02  22:44:48
+
+Start-Date: 2023-12-02  22:45:15
+Commandline: apt install libasound2-dev
+Requested-By: pablo (1000)
+Install: libasound2-dev:armhf (1.2.4-1.1+rpt2)
+End-Date: 2023-12-02  22:45:16
+
+Start-Date: 2023-12-02  22:49:03
+Commandline: apt install git
+Requested-By: pablo (1000)
+Install: git:armhf (1:2.30.2-1+deb11u2), liberror-perl:armhf (0.17029-1, automatic), git-man:armhf (1:2.30.2-1+deb11u2, automatic)
+End-Date: 2023-12-02  22:49:33
+
+Start-Date: 2023-12-02  23:14:46
+Commandline: apt install mpg321
+Requested-By: pablo (1000)
+Install: libtimedate-perl:armhf (2.3300-2, automatic), libhtml-tagset-perl:armhf (3.20-4, automatic), libnet-ssleay-perl:armhf (1.88-3+b1, automatic), libauthen-sasl-perl:armhf (2.1600-1.1, automatic), libio-socket-ssl-perl:armhf (2.069-1, automatic), libwww-robotrules-perl:armhf (6.02-1, automatic), libhtml-form-perl:armhf (6.07-1, automatic), liblwp-protocol-https-perl:armhf (6.10-1, automatic), libwww-perl:armhf (6.52-1, automatic), libtry-tiny-perl:armhf (0.30-1, automatic), libhttp-negotiate-perl:armhf (6.01-1, automatic), libfont-afm-perl:armhf (1.20-3, automatic), libencode-locale-perl:armhf (1.05-1.1, automatic), libmad0:armhf (0.15.1b-10, automatic), libdata-dump-perl:armhf (1.23-1.1, automatic), liblwp-mediatypes-perl:armhf (6.04-1, automatic), libhtml-tree-perl:armhf (5.07-2, automatic), libmailtools-perl:armhf (2.21-1, automatic), liburi-perl:armhf (5.08-1, automatic), libhttp-cookies-perl:armhf (6.10-1, automatic), libio-html-perl:armhf (1.004-2, automatic), libnet-http-perl:armhf (6.20-1, automatic), libaudio-scrobbler-perl:armhf (0.01-2.3, automatic), libhtml-format-perl:armhf (2.12-1.1, automatic), libid3tag0:armhf (0.15.1b-14, automatic), libhttp-date-perl:armhf (6.05-1, automatic), libhtml-parser-perl:armhf (3.75-1+b1, automatic), libconfig-inifiles-perl:armhf (3.000003-1, automatic), perl-openssl-defaults:armhf (5, automatic), mpg321:armhf (0.3.2-3.1), libao-common:armhf (1.2.2+20180113-1.1, automatic), libclone-perl:armhf (0.45-1+b1, automatic), libao4:armhf (1.2.2+20180113-1.1, automatic), libhttp-message-perl:armhf (6.28-1, automatic), libfile-listing-perl:armhf (6.14-1, automatic), libnet-smtp-ssl-perl:armhf (1.04-1, automatic), libhttp-daemon-perl:armhf (6.12-1+deb11u1, automatic)
+End-Date: 2023-12-02  23:15:19
+
+Start-Date: 2023-12-02  23:17:24
+Commandline: apt install lame
+Requested-By: pablo (1000)
+Install: lame:armhf (3.100-3), libmp3lame0:armhf (3.100-3, automatic)
+End-Date: 2023-12-02  23:17:29
+
+Start-Date: 2023-12-03  00:37:28
+Commandline: apt install input-utils
+Requested-By: pablo (1000)
+Install: input-utils:armhf (1.0-1.1)
+End-Date: 2023-12-03  00:37:32
