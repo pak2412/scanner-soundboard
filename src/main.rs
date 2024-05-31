@@ -30,21 +30,21 @@ fn get_char(key: Key) -> Option<char> {
 
 fn main() -> Result<()> {
     // println!("Programm gestartet...");
-    let button_red = Button::new(12);
-    let button_white = Button::new(6);
-    let button_blue = Button::new(13);
+    let button_red = Button::new(11);
+    let button_white = Button::new(8);
+    let button_blue = Button::new(7);
 
-    // loop {
-    //     if button_red.is_active() {
-    //         println!("Roter Knopf wurde gedrueckt")
-    //     }
-    //     if button_white.is_active() {
-    //         println!("Weisser Knopf wurde gedrueckt")
-    //     }
-    //     if button_blue.is_active() {
-    //         println!("Blauer Knopf wurde gedrueckt")
-    //     }
-    // }
+//     loop {
+//         if button_red.is_active() {
+//             println!("Roter Knopf wurde gedrueckt")
+//         }
+//         if button_white.is_active() {
+//             println!("Weisser Knopf wurde gedrueckt")
+//         }
+//         if button_blue.is_active() {
+//             println!("Blauer Knopf wurde gedrueckt")
+//         }
+//     }
 
     let args = cli::parse_args();
 
@@ -70,15 +70,35 @@ fn main() -> Result<()> {
     }
 
     let mut read_chars = String::new();
+    let mut red_pressed_count = 0;
+    let mut blue_pressed_count = 0;
+    let mut white_pressed_count =0;
+ 
     loop {
-        if button_red.is_active() {
+	if button_red.is_active(){
+		red_pressed_count+=1;
+           println!("red plus 1");
+	}
+        if button_red.is_active()&&red_pressed_count>5 {
             sink.set_volume(0.1);
+	    red_pressed_count=0;
+            println!("increased volume.");
         }
         if button_blue.is_active() {
+            blue_pressed_count +=1;
+        }
+        if button_blue.is_active()&& blue_pressed_count>5 {
             sink.set_volume(-0.1);
+            blue_pressed_count=0;
+            println!("decreased volume.");
         }
         if button_white.is_active() {
+            white_pressed_count +=1;
+        }
+        if button_white.is_active()&& white_pressed_count>5 {
             sink.stop();
+            white_pressed_count = 0;
+            println!("stopped music");
         }
         for event in input_device.fetch_events()? {
             // Only handle pressed key events.

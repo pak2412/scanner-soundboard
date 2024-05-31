@@ -30,11 +30,6 @@ pub(crate) fn play_sound(
     Ok(())
 }
 
-pub(crate) fn stop_sound(sink: &Sink) -> Result<()> {
-    sink.stop();
-    Ok(())
-}
-
 fn load_source(path: &Path) -> Result<Decoder<BufReader<File>>> {
     let file = BufReader::new(File::open(path)?);
     Ok(Decoder::new(file)?)
