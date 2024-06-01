@@ -24,4 +24,4 @@ rodio = { version = "0.18", default-features = false, features = [
 ] }
 serde = { version = "1.0", features = ["derive"] }
 toml = "0.8.13"
-rust_gpiozero = "0.2.1"
+rppal = "0.18.0"

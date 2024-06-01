@@ -6,11 +6,15 @@
 use anyhow::Result;
 use evdev::{Device, EventType, InputEventKind, Key};
 use rodio::{OutputStream, Sink};
-use rust_gpiozero::Button;
-use std::process::exit;
+use std::{process::exit, sync::Arc, thread};
+use rppal::gpio::Gpio;
 mod audio;
 mod cli;
 mod config;
+
+const GPIO_RED: u8 = 2;
+const GPIO_WHITE: u8 = 3;
+const GPIO_BLUE: u8 = 4;
 
 fn get_char(key: Key) -> Option<char> {
     match key {
@@ -30,13 +34,13 @@ fn get_char(key: Key) -> Option<char> {
 
 fn main() -> Result<()> {
     println!("Programm gestartet...");
-   
+
     let args = cli::parse_args();
 
     let config = config::load_config(&args.config_filename)?;
 
     let (_stream, stream_handle) = OutputStream::try_default().unwrap();
-    let sink = Sink::try_new(&stream_handle).unwrap();
+    let sink = Arc::new(Sink::try_new(&stream_handle).unwrap());
 
     sink.sleep_until_end();
 
@@ -45,7 +49,7 @@ fn main() -> Result<()> {
         "Opened input device \"{}\".",
         input_device.name().unwrap_or("unnamed device")
     );
-    
+
     match input_device.grab() {
         Ok(_) => println!("Successfully obtained exclusive access to input device."),
         Err(error) => {
@@ -54,68 +58,82 @@ fn main() -> Result<()> {
         }
     }
 
-    println!("now we should handle events!");
-
     let mut read_chars = String::new();
-    let button_red = Button::new(11);
-    let button_white = Button::new(8);
-    let button_blue = Button::new(7);
-    let VALUE_BUTTON_PRESSED = 20;
-    let mut red_pressed_count = 0;
-    let mut blue_pressed_count = 0;
-    let mut white_pressed_count = 0;
+    // let gpio = Gpio::new().unwrap();
+    // let button_red = gpio.get(GPIO_RED).unwrap().into_input();
+    // let button_white = gpio.get(GPIO_WHITE).unwrap().into_input();
+    // let button_blue = gpio.get(GPIO_BLUE).unwrap().into_input();
 
-    loop {        
-        if button_red.is_active() {
-            red_pressed_count += 1;
-            println!("red plus 1");
-        }
-        if button_red.is_active() && red_pressed_count > VALUE_BUTTON_PRESSED {
-            sink.set_volume(0.1);
-            red_pressed_count = 0;
-            println!("increased volume.");
-        }
-        if button_blue.is_active() {
-            blue_pressed_count += 1;
-        }
-        if button_blue.is_active() && blue_pressed_count > VALUE_BUTTON_PRESSED {
-            sink.set_volume(-0.1);
-            blue_pressed_count = 0;
-            println!("decreased volume.");
-        }
-        if button_white.is_active() {
-            white_pressed_count += 1;
-        }
-        if button_white.is_active() && white_pressed_count > VALUE_BUTTON_PRESSED {
-            sink.stop();
-            white_pressed_count = 0;
-            println!("stopped music");
-        }
-        for event in input_device.fetch_events()? {
-           // println!("event value was \"{}\".",event.value().as_str());
-            // Only handle pressed key events.
-            if event.event_type() != EventType::KEY || event.value() == 1 {
-                continue;
-            }
+    // let mut red_button_merker = false;
+    // let mut blue_pressed_merker = false;
+    // let mut white_pressed_merker = false;
 
-            match event.kind() {
-                InputEventKind::Key(Key::KEY_ENTER) => {
-                    let input = read_chars.as_str();
-                    println!("{}", input);
-                    audio::play_sound(
-                        &config.inputs_to_filenames,
-                        input,
-                        config.sounds_path.as_path(),
-                        &sink,
-                    )?;
+    // let button_handler = thread::spawn(move || loop {
+    //     if button_red.is_high() && !red_button_merker {
+    //         println!("rot gedrückt");
+    //         // sink.set_volume(0.1);
+    //         red_button_merker = true;
+    //     }
+    //     if button_red.is_low() && red_button_merker {
+    //         println!("rot losgelassen");
+    //         red_button_merker = false;
+    //     }
+
+    //     if button_blue.is_high() && !blue_pressed_merker {
+    //         // sink.set_volume(-0.1);
+    //         println!("blau gedrückt");
+    //         blue_pressed_merker = true;
+    //     }
+    //     if button_blue.is_low() && blue_pressed_merker {
+    //         println!("blau losgelassen");
+    //         blue_pressed_merker = false;
+    //     }
+
+    //     if button_white.is_high() && !white_pressed_merker {
+    //         println!("weiß gedrückt");
+    //         // sink.stop();
+    //         white_pressed_merker = true;
+    //     }
+    //     if button_white.is_low() && white_pressed_merker {
+    //         println!("weiß losgelassen");
+    //         white_pressed_merker = false;
+    //     }
+    // });
+
+    let sink = sink.clone();
+
+    let nfc_handler = thread::spawn(move || {
+        loop {
+            for event in input_device.fetch_events().unwrap() {
+                // println!("event value was \"{}\".",event.value());
+                // Only handle pressed key events.
+                if event.event_type() != EventType::KEY || event.value() == 1 {
+                    continue;
                 }
-               InputEventKind::Key(key) => {
-                    if let Some(ch) = get_char(key) {
-                        read_chars.push(ch)
+
+                match event.kind() {
+                    InputEventKind::Key(Key::KEY_ENTER) => {
+                        let input = read_chars.as_str();
+                        audio::play_sound(
+                            &config.inputs_to_filenames,
+                            input,
+                            config.sounds_path.as_path(),
+                            &sink,
+                        )
+                        .unwrap();
                     }
+                    InputEventKind::Key(key) => {
+                        if let Some(ch) = get_char(key) {
+                            read_chars.push(ch);
+                        }
+                    }
+                    _ => (),
                 }
-                _ => (),
-           }
+            }
         }
-    }
+    });
+
+    button_handler.join().unwrap();
+    nfc_handler.join().unwrap();
+    Ok(())
 }

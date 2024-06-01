@@ -1,4 +1,4 @@
-sounds_path = "./music"
+sounds_path = "/home/pablo/music"
 
 [inputs_to_filenames]
-"0286331153" = "Stone Sour - 12 - Zzyzx Rd.mp3"
+"86331153" = "01 Einleitung.mp3"
