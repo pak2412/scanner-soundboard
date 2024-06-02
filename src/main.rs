@@ -83,7 +83,7 @@ fn main() -> Result<()> {
         }    
      });
 
-    let sink = sink.clone();
+    let nfc_sinc = sink.clone();
 
     let nfc_handler = thread::spawn(move || {
         loop {
@@ -101,7 +101,7 @@ fn main() -> Result<()> {
                             &config.inputs_to_filenames,
                             input,
                             config.sounds_path.as_path(),
-                            &sink,
+                            &nfc_sinc,
                         )
                         .unwrap();
                     }
