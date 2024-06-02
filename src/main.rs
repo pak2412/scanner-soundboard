@@ -41,7 +41,7 @@ fn main() -> Result<()> {
 
     let (_stream, stream_handle) = OutputStream::try_default().unwrap();
     let sink = Arc::new(Sink::try_new(&stream_handle).unwrap());
-    //let nfc_sinc = sink.clone();
+    let nfc_sinc = sink.clone();
     
     sink.sleep_until_end();
 
@@ -65,11 +65,10 @@ fn main() -> Result<()> {
     let button_white = gpio.get(GPIO_WHITE)?.into_input_pullup();
     let button_blue = gpio.get(GPIO_BLUE)?.into_input_pullup();
     let debounce_time = time::Duration::from_millis(500);
-    
+    //let volSink  = Arc::clone(&sink);
     let button_handler = thread::spawn(move || loop {
         if button_red.is_low(){
             println!("vol up");
-            sink.lock().unwrap();
             sink.set_volume(0.1);
             thread::sleep(debounce_time);
         }
@@ -102,7 +101,7 @@ fn main() -> Result<()> {
                             &config.inputs_to_filenames,
                             input,
                             config.sounds_path.as_path(),
-                            &sink,
+                            &nfc_sinc,
                         )
                         .unwrap();
                     }
