@@ -6,15 +6,15 @@
 use anyhow::Result;
 use evdev::{Device, EventType, InputEventKind, Key};
 use rodio::{OutputStream, Sink};
-use std::{process::exit, sync::Arc, thread};
+use std::{process::exit, sync::Arc, thread, time};
 use rppal::gpio::Gpio;
 mod audio;
 mod cli;
 mod config;
 
 const GPIO_RED: u8 = 2;
-const GPIO_WHITE: u8 = 3;
-const GPIO_BLUE: u8 = 4;
+const GPIO_BLUE: u8 = 3;
+const GPIO_WHITE: u8 = 4;
 
 fn get_char(key: Key) -> Option<char> {
     match key {
@@ -59,46 +59,29 @@ fn main() -> Result<()> {
     }
 
     let mut read_chars = String::new();
-    // let gpio = Gpio::new().unwrap();
-    // let button_red = gpio.get(GPIO_RED).unwrap().into_input();
-    // let button_white = gpio.get(GPIO_WHITE).unwrap().into_input();
-    // let button_blue = gpio.get(GPIO_BLUE).unwrap().into_input();
-
-    // let mut red_button_merker = false;
-    // let mut blue_pressed_merker = false;
-    // let mut white_pressed_merker = false;
-
-    // let button_handler = thread::spawn(move || loop {
-    //     if button_red.is_high() && !red_button_merker {
-    //         println!("rot gedrückt");
-    //         // sink.set_volume(0.1);
-    //         red_button_merker = true;
-    //     }
-    //     if button_red.is_low() && red_button_merker {
-    //         println!("rot losgelassen");
-    //         red_button_merker = false;
-    //     }
-
-    //     if button_blue.is_high() && !blue_pressed_merker {
-    //         // sink.set_volume(-0.1);
-    //         println!("blau gedrückt");
-    //         blue_pressed_merker = true;
-    //     }
-    //     if button_blue.is_low() && blue_pressed_merker {
-    //         println!("blau losgelassen");
-    //         blue_pressed_merker = false;
-    //     }
-
-    //     if button_white.is_high() && !white_pressed_merker {
-    //         println!("weiß gedrückt");
-    //         // sink.stop();
-    //         white_pressed_merker = true;
-    //     }
-    //     if button_white.is_low() && white_pressed_merker {
-    //         println!("weiß losgelassen");
-    //         white_pressed_merker = false;
-    //     }
-    // });
+    let gpio = Gpio::new().unwrap();
+    let button_red = gpio.get(GPIO_RED)?.into_input_pullup();
+    let button_white = gpio.get(GPIO_WHITE)?.into_input_pullup();
+    let button_blue = gpio.get(GPIO_BLUE)?.into_input_pullup();
+    let debounce_time = time::Duration::from_millis(500);
+    
+    let button_handler = thread::spawn(move || loop {
+        if button_red.is_low(){
+            println!("vol up");
+            sink.set_volume(0.1);
+            thread::sleep(debounce_time);
+        }
+        if button_blue.is_low(){
+            println!("vol down");
+            sink.set_volume(-0.1);
+            thread::sleep(debounce_time);
+        }
+        if button_white.is_low(){
+            println!("stop playing");
+            sink.stop();
+            thread::sleep(debounce_time);
+        }    
+     });
 
     let sink = sink.clone();
 
