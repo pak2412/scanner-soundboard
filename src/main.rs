@@ -41,7 +41,8 @@ fn main() -> Result<()> {
 
     let (_stream, stream_handle) = OutputStream::try_default().unwrap();
     let sink = Arc::new(Sink::try_new(&stream_handle).unwrap());
-
+    //let nfc_sinc = sink.clone();
+    
     sink.sleep_until_end();
 
     let mut input_device = Device::open(&args.input_device)?;
@@ -68,6 +69,7 @@ fn main() -> Result<()> {
     let button_handler = thread::spawn(move || loop {
         if button_red.is_low(){
             println!("vol up");
+            sink.lock().unwrap();
             sink.set_volume(0.1);
             thread::sleep(debounce_time);
         }
@@ -83,7 +85,6 @@ fn main() -> Result<()> {
         }    
      });
 
-    let nfc_sinc = sink.clone();
 
     let nfc_handler = thread::spawn(move || {
         loop {
@@ -101,7 +102,7 @@ fn main() -> Result<()> {
                             &config.inputs_to_filenames,
                             input,
                             config.sounds_path.as_path(),
-                            &nfc_sinc,
+                            &sink,
                         )
                         .unwrap();
                     }
