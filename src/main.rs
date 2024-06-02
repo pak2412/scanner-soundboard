@@ -43,7 +43,7 @@ fn main() -> Result<()> {
     let sink = Arc::new(Sink::try_new(&stream_handle).unwrap());
     let nfc_sinc = sink.clone();
     
-    sink.sleep_until_end();
+    //sink.sleep_until_end();
 
     let mut input_device = Device::open(&args.input_device)?;
     println!(
@@ -65,21 +65,21 @@ fn main() -> Result<()> {
     let button_white = gpio.get(GPIO_WHITE)?.into_input_pullup();
     let button_blue = gpio.get(GPIO_BLUE)?.into_input_pullup();
     let debounce_time = time::Duration::from_millis(500);
-    //let volSink  = Arc::clone(&sink);
+    
     let button_handler = thread::spawn(move || loop {
         if button_red.is_low(){
             println!("vol up");
-            sink.set_volume(0.1);
+            sink.set_volume(1.5);
             thread::sleep(debounce_time);
         }
         if button_blue.is_low(){
             println!("vol down");
-            sink.set_volume(-0.1);
+            sink.set_volume(0.5);
             thread::sleep(debounce_time);
         }
         if button_white.is_low(){
             println!("stop playing");
-            sink.stop();
+            sink.clear();
             thread::sleep(debounce_time);
         }    
      });
