@@ -13,8 +13,8 @@ mod cli;
 mod config;
 
 const GPIO_RED: u8 = 2;
-const GPIO_BLUE: u8 = 3;
-const GPIO_WHITE: u8 = 4;
+const GPIO_BLUE: u8 = 4;
+//const GPIO_WHITE: u8 = 4;
 
 fn get_char(key: Key) -> Option<char> {
     match key {
@@ -62,7 +62,7 @@ fn main() -> Result<()> {
     let mut read_chars = String::new();
     let gpio = Gpio::new().unwrap();
     let button_red = gpio.get(GPIO_RED)?.into_input_pullup();
-    let button_white = gpio.get(GPIO_WHITE)?.into_input_pullup();
+    //let button_white = gpio.get(GPIO_WHITE)?.into_input_pullup();
     let button_blue = gpio.get(GPIO_BLUE)?.into_input_pullup();
     let debounce_time = time::Duration::from_millis(500);
     
@@ -77,11 +77,11 @@ fn main() -> Result<()> {
             sink.set_volume(0.5);
             thread::sleep(debounce_time);
         }
-        if button_white.is_low(){
-            println!("stop playing");
-            sink.clear();
-            thread::sleep(debounce_time);
-        }    
+        //if button_white.is_low(){
+        //    println!("stop playing");
+        //    sink.clear();
+        //    thread::sleep(debounce_time);
+        //}    
      });
 
 
