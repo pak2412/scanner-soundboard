@@ -36,10 +36,10 @@ fn main() -> Result<()> {
     println!("Programm gestartet...");
 
     let args = cli::parse_args();
-
+    println!("args parsed");
     let config = config::load_config(&args.config_filename)?;
-
-    let (_, stream_handle) = OutputStream::try_default().unwrap();
+    println!("config loaded");
+    let (_stream, stream_handle) = OutputStream::try_default().unwrap();
     let btn_thread_player = Arc::new(Player::new(config, stream_handle));
     let nfc_thread_player = btn_thread_player.clone();
 
