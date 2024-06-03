@@ -1,4 +1,5 @@
 use rodio::Decoder;
+use rodio::OutputStream;
 use rodio::OutputStreamHandle;
 use rodio::Sink;
 use std::fs::File;
@@ -13,7 +14,8 @@ pub struct Player {
 }
 
 impl Player {
-    pub fn new(config: Config, stream_handle: OutputStreamHandle) -> Self {
+    pub fn new(config: Config) -> Self {
+        let (_stream, stream_handle) = OutputStream::try_default().unwrap();
         let sink = Sink::try_new(&stream_handle).unwrap();
         let stream_handle = stream_handle;
         Player {

@@ -6,7 +6,6 @@
 use anyhow::Result;
 use evdev::{Device, EventType, InputEventKind, Key};
 use player::Player;
-use rodio::OutputStream;
 use rppal::gpio::Gpio;
 use std::{
     process::exit,
@@ -43,8 +42,7 @@ fn main() -> Result<()> {
 
     let config = config::load_config(&args.config_filename)?;
 
-    let (_stream, stream_handle) = OutputStream::try_default().unwrap();
-    let btn_thread_player = Arc::new(Mutex::new(Player::new(config, stream_handle)));
+    let btn_thread_player = Arc::new(Mutex::new(Player::new(config)));
     let nfc_thread_player = btn_thread_player.clone();
 
     let mut input_device = Device::open(&args.input_device)?;
