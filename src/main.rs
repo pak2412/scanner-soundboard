@@ -14,7 +14,7 @@ mod config;
 mod player;
 
 const GPIO_RED: u8 = 2;
-const GPIO_BLUE: u8 = 4;
+const GPIO_BLUE: u8 = 17;
 
 fn get_char(key: Key) -> Option<char> {
     match key {
