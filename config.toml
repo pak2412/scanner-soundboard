@@ -1,9 +1,7 @@
-sounds_path = "/home/pablo/music"
+sounds_path = "/home/tobias/music"
 
 [inputs_to_filenames]
-"028633115301704369" = "02 Tyrion.mp3"
-"000675054310300335" = "03 Tabaluga.mp3"
+"1" = "foobar.mp3"
+"2" = "foobar2.mp3"
 "000679830310348095" = "06 Riesen-Glück.mp3"
 "000677258810322380" = "09 Kaulquappenschule.mp3"
-
-
