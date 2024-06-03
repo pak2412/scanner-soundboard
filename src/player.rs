@@ -40,6 +40,7 @@ impl Player {
     }
 
     pub fn stop(&mut self) {
+        self.sink.stop();
         self.sink = Sink::try_new(&self.stream_handle).unwrap();
     }
 }
